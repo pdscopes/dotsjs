@@ -35,7 +35,7 @@ var Dots = {
                 continue;
             }
 
-            if (typeof object[i] === 'object' && Object.keys(object[i]).length > 0) {
+            if (object[i] !== null && typeof object[i] === 'object' && Object.keys(object[i]).length > 0) {
                 results = Dots.implode(object[i], results, prepend+i+'.');
             } else {
                 results[prepend+i] = object[i];
