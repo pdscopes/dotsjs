@@ -22,8 +22,8 @@ var Dots = {
      * Flatten a multi-dimensional object into a dots notation object.
      * @function
      * @param {Array|object} object  Object to be flattened
-     * @param {object} results Object to insert elements
-     * @param {string} prepend Prefix to be added
+     * @param {object} [results] Object to insert elements
+     * @param {string} [prepend] Prefix to be added
      * @returns {object}
      */
     implode: function (object, results, prepend) {
@@ -100,5 +100,29 @@ var Dots = {
         temp[key] = value;
 
         return object;
+    },
+
+    /**
+     * Search through the object to find a matching key or returns defaultValue.
+     * @function
+     * @param {object} object Object to add new key value pair
+     * @param {string} key Dots notation key
+     * @param {*} [defaultValue] Value
+     * @returns {*}
+     */
+    get: function (object, key, defaultValue) {
+        defaultValue = typeof defaultValue === 'undefined' ? null : defaultValue;
+        var keys = key.split('.');
+        var temp = object;
+
+        for (var k=0; k<keys.length; k++) {
+            key = keys[k];
+            if (typeof  temp !== 'object' || !temp.hasOwnProperty(key)) {
+                return defaultValue;
+            }
+            temp = temp[key];
+        }
+
+        return temp;
     }
 };
